@@ -1,0 +1,15 @@
+{
+  "deck_serial_number": {
+    "brightness": "0 - 100",
+    "key_config": {
+      "key_id": {
+        "backend": "backend_id",
+        "event": "event_name",
+        "event_parameters": {
+          "param_1_name": "param_1_property",
+          "param_2_name": "param_2_property"
+        }
+      }
+    }
+  }
+}
