@@ -18,4 +18,6 @@ changes take effect.
 ## libhidapi and flatpak
 If you happen to run PyCharm from flatpak (as I do) it will not be able to access `libhidapi-libusb.so` from the host.  
 To workaround this issue simply run `pip install --editable .` in a terminal on your host OS which is not sandboxed by  
-flatpak.
+flatpak.  
+Until I found a way to resolve this issue inside the flatpak runtime El Decko can't be provided as a flatpak. :/  
+I am really sorry for this.
