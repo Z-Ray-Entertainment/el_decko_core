@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "el_decko_core"
+dynamic = ["version", "readme"]
+description = "El Decko OBS Studio Websocket Backend"
+license = { text = "GPL-3"}
+dependencies = [
+    "streamdeck",
+    "xdg",
+    "el_decko_backend_obs_ws"
+]
+
+[project.optional-dependencies]
+backends = ["el_decko_backend_obs_ws>=0.0.1"]
+
+[project.scripts]
+ed-core = "ed_core:run"
+
+[project.entry-points."eldecko.core"]
+start = "ed_core:run"
+
+[tool.setuptools.dynamic]
+version = {attr = "ed_core.VERSION"}
+readme = {file = ["README.md"]}
+
+[tool.setuptools]
+include-package-data = true
+platforms = ["Linux"]
