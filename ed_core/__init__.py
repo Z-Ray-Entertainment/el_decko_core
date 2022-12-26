@@ -1,22 +1,13 @@
 from importlib.metadata import entry_points
-from StreamDeck.DeviceManager import DeviceManager
+
+from ed_core import streamdeck
+from ed_core.streamdeck_config import load_config
 
 VERSION = "0.0.1"
-
-backends = entry_points(group='eldecko.backend')
-streamdecks = DeviceManager().enumerate()
 
 
 def run():
     print("El Decko Core running.")
-    print(backends)
-    init_backend = backends['init'].load()
-    init_backend()
-    print(get_stream_decks())
-    # fire = backends['fire'].load()
-    # fire("SwitchScene", {"name": "S: Gaming"})
-
-
-# Returns a list of all available Stream Decks
-def get_stream_decks():
-    return streamdecks
+    load_config()
+    backends = entry_points(group='eldecko.backend')
+    streamdeck.initialize(backends)
