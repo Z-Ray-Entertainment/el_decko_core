@@ -5,6 +5,8 @@ It serves as the glue between any backend, the Stream Deck  and any given user i
 If writing news user interfaces please target the core instead of using any or multiple backends directly.  
 Also don't provide Stream Deck related functionality directly in the UI but seek to add missing stuff here.
 
+![El Decko concept](examples/el_decko_concept.svg "El Decko concept")
+
 ## Develop El Decko
 If you're using virtualenv to develop El Decko I advice to not use seperate venvs for each component but to install them  
 all in the same environment simply do the following: `pip install --editable .` on all backends, the core and UIs  
