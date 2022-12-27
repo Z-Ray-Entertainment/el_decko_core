@@ -2,6 +2,8 @@ import threading
 
 from StreamDeck.DeviceManager import DeviceManager
 
+from ed_core import streamdeck_config
+
 stream_decks = DeviceManager().enumerate()
 backends = None
 action_map = {}
@@ -21,7 +23,7 @@ def initialize(edbs):
             deck.deck_type(), deck.get_serial_number(), deck.get_firmware_version()
         ))
 
-        set_brightness(deck, 30)
+        streamdeck_config.apply_config(deck)
         deck.set_key_callback(__key_change_callback)
 
         for t in threading.enumerate():

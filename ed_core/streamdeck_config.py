@@ -12,12 +12,9 @@ from xdg import (
     xdg_state_home,
 )
 
-from ed_core.streamdeck import get_stream_decks
-
 CONFIG_PATH: str = str(xdg_config_home()) + "/eldecko/"
 CONFIG_FILE: str = CONFIG_PATH + "streamdeck.json"
-
-deck_cfg: dict = {}
+DECK_CFG: dict = {}
 
 
 def load_config():
@@ -25,6 +22,21 @@ def load_config():
         os.makedirs(CONFIG_PATH)
     if not os.path.isfile(CONFIG_FILE):
         __create_default_config()
+    try:
+        with open(CONFIG_FILE) as input_file:
+            global DECK_CFG
+            DECK_CFG = json.load(input_file)
+    except json.decoder.JSONDecodeError as e:
+        print(e)
+
+
+def get_config():
+    return DECK_CFG
+
+
+def apply_config(deck):
+    serial = deck.get_serial_number()
+    deck.set_brightness(DECK_CFG[serial]["brightness"])
 
 
 def __create_default_config():
@@ -49,7 +61,7 @@ def __create_default_config():
                 "image": None
             }
 
-        deck_cfg[serial] = dict(brightness=30, key_config=key_config)
+        DECK_CFG[serial] = dict(brightness=30, key_config=key_config)
         deck.close()
         with open(CONFIG_FILE, "w+", encoding="utf-8") as outfile:
-            json.dump(deck_cfg, outfile, ensure_ascii=False, indent=2)
+            json.dump(DECK_CFG, outfile, ensure_ascii=False, indent=2)
