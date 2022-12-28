@@ -24,6 +24,10 @@ flatpak.
 Until I found a way to resolve this issue inside the flatpak runtime El Decko can't be provided as a flatpak. :/  
 I am really sorry for this.
 
+## Standalone
+If you do not want to run El Decko using any UI but just want it to sit silently in the background and waiting for key press events on your Stream Deck you can run it as a stand-alone program after installing it via pip as follows: `ed-core`  
+But keep in mind that any change on your configuration files will require you to quit and restart El Decko manually and don't close the terminal window as this might exit the program as well.  
+
 ## First run
 Upon the first run El Decko Core will create an empty default configurations file at `$XDG_CONFIG/eldecko`.  
 The default path is: `$HOME/.config/eldecko`
