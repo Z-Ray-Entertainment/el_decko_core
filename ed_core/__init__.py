@@ -14,9 +14,12 @@ def run():
     for edb in discovered_backends:
         edb_id = edb.value.split(":")[0]
         edb_function = edb.load()
-        edb_name = edb.name
-        if edb_id not in BACKENDS:
-            BACKENDS[edb_id] = {}
-        BACKENDS[edb_id][edb_name] = edb_function
+        edb_name: str = edb.name
+        if edb_name.lower() == "init":
+            edb_function()
+        else:
+            if edb_id not in BACKENDS:
+                BACKENDS[edb_id] = {}
+            BACKENDS[edb_id][edb_name] = edb_function
 
     streamdeck.initialize(BACKENDS)

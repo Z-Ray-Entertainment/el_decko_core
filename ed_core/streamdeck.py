@@ -55,9 +55,6 @@ def set_brightness(deck, brightness: int):
 
 
 def __key_change_callback(deck: StreamDeck, key, state):
-    print("Deck {} Key {} = {}".format(deck.id(), key, state), flush=True)
     if state:
-        init = backends["edb_obs_ws"]["init"]
-        init()
         fire = backends["edb_obs_ws"]["fire"]
         fire("SwitchScene", {"name": "S: Desktop"})
