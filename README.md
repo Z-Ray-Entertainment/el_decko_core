@@ -23,3 +23,7 @@ To workaround this issue simply run `pip install --editable .` in a terminal on 
 flatpak.  
 Until I found a way to resolve this issue inside the flatpak runtime El Decko can't be provided as a flatpak. :/  
 I am really sorry for this.
+
+## First run
+Upon the first run El Decko Core will create an empty default configurations file at `$XDG_CONFIG/eldecko`.  
+The default path is: `$HOME/.config/eldecko`
