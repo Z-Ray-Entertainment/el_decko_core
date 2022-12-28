@@ -16,10 +16,7 @@ def run():
         edb_function = edb.load()
         edb_name = edb.name
         if edb_id not in BACKENDS:
-            BACKENDS[edb_id] = []
-        BACKENDS[edb_id].append({
-            "name": edb_name,
-            "function": edb_function
-        })
+            BACKENDS[edb_id] = {}
+        BACKENDS[edb_id][edb_name] = edb_function
 
-    streamdeck.initialize(discovered_backends)
+    streamdeck.initialize(BACKENDS)
