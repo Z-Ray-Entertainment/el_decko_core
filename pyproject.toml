@@ -20,10 +20,11 @@ ed-core = "ed_core:run"
 
 [project.entry-points."eldecko.core"]
 start = "ed_core:run"
+backends = "ed_core:backends"
 
 [tool.setuptools.dynamic]
-version = {attr = "ed_core.VERSION"}
-readme = {file = ["README.md"]}
+version = { attr = "ed_core.VERSION" }
+readme = { file = ["README.md"] }
 
 [tool.setuptools]
 include-package-data = true

@@ -23,3 +23,7 @@ def run():
             BACKENDS[edb_id][edb_name] = edb_function
 
     streamdeck.initialize(BACKENDS)
+
+
+def backends():
+    return BACKENDS
