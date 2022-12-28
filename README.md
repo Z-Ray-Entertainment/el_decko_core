@@ -27,3 +27,9 @@ I am really sorry for this.
 ## First run
 Upon the first run El Decko Core will create an empty default configurations file at `$XDG_CONFIG/eldecko`.  
 The default path is: `$HOME/.config/eldecko`
+
+## Currently available backends
+- [OBS Studio Websocket](https://github.com/Z-Ray-Entertainment/el_decko_backend_obs_ws)
+  * This backend function by using OBS Studios websocket server.
+  * This way it is display server agnostic
+  * You need to enable the websocket server inside OBS and supply the plugin with the generated password.
