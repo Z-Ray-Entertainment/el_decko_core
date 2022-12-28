@@ -2,6 +2,7 @@ import json
 import os
 
 from StreamDeck.DeviceManager import DeviceManager
+from StreamDeck.Devices.StreamDeck import StreamDeck
 from xdg import (
     xdg_cache_home,
     xdg_config_dirs,
@@ -34,7 +35,7 @@ def get_config():
     return DECK_CFG
 
 
-def apply_config(deck):
+def apply_config(deck: StreamDeck):
     serial = deck.get_serial_number()
     deck.set_brightness(DECK_CFG[serial]["brightness"])
 
@@ -58,7 +59,8 @@ def __create_default_config():
                 "event_parameters": {
 
                 },
-                "image": None
+                "image_idle": None,
+                "image_pressed": None
             }
 
         DECK_CFG[serial] = dict(brightness=30, key_config=key_config)
