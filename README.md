@@ -17,7 +17,7 @@ Changes on the python code will take effect imminently.
 Only if you change the pyproject.toml files you need to re-run `pip install --editable .` to let this  
 changes take effect.
 
-## lib-hidapi and flatpak
+### lib-hidapi and flatpak
 If you happen to run PyCharm from flatpak (as I do) it will not be able to access `libhidapi-libusb.so` from the host.  
 To workaround this issue simply run `pip install --editable .` in a terminal on your host OS which is not sandboxed by  
 flatpak.  
@@ -28,11 +28,11 @@ I am really sorry for this.
 If you do not want to run El Decko using any UI but just want it to sit silently in the background and waiting for key press events on your Stream Deck you can run it as a stand-alone program after installing it via pip as follows: `ed-core`  
 But keep in mind that any change on your configuration files will require you to quit and restart El Decko manually and don't close the terminal window as this might exit the program as well.  
 
-## First run
+### First run
 Upon the first run El Decko Core will create an empty default configurations file at `$XDG_CONFIG/eldecko`.  
 The default path is: `$HOME/.config/eldecko`
 
-## Currently available backends
+## Available backends
 - [OBS Studio Websocket](https://github.com/Z-Ray-Entertainment/el_decko_backend_obs_ws)
   * This backend function by using OBS Studios websocket server.
   * This way it is display server agnostic
