@@ -2,7 +2,7 @@
   "deck_serial_number": {
     "brightness": "Integer: 0 - 100",
     "key_config": {
-      "key_id": {
+      "key_number": {
         "backend": "String: backend_id",
         "event": "String: event_name",
         "event_parameters": {
@@ -11,6 +11,15 @@
         },
         "image_idle": "Path: idle.jpg",
         "image_pressed": "Path: pressed.jpg"
+      },
+      "0": {
+        "backend": "edb_obs_ws",
+        "event": "SwitchScene",
+        "event_parameters": {
+          "name": "My awesome OBS Studio Scene"
+        },
+        "image_idle": null,
+        "image_pressed": null
       }
     }
   }
