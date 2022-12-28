@@ -6,7 +6,7 @@ from StreamDeck.Devices.StreamDeck import StreamDeck
 from ed_core import streamdeck_config
 
 stream_decks = DeviceManager().enumerate()
-backends = None
+backends = []
 
 
 def initialize(edbs):
@@ -56,5 +56,10 @@ def set_brightness(deck, brightness: int):
 
 def __key_change_callback(deck: StreamDeck, key, state):
     if state:
-        fire = backends["edb_obs_ws"]["fire"]
-        fire("SwitchScene", {"name": "S: Desktop"})
+        cfg = streamdeck_config.DECK_CFG[deck.get_serial_number()]
+        edb_id: str = cfg["key_config"][str(key)]["backend"]
+        edb_event: str = cfg["key_config"][str(key)]["event"]
+        edb_params: dict = cfg["key_config"][str(key)]["event_parameters"]
+        if edb_id:
+            fire = backends[edb_id]["fire"]
+            fire(edb_event, edb_params)
