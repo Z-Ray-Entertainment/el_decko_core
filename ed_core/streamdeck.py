@@ -12,6 +12,8 @@ action_map = {}
 def initialize(edbs):
     global backends
     backends = edbs
+    init_backend = backends['init'].load()
+    init_backend()
     for index, deck in enumerate(stream_decks):
         if not deck.is_visual():
             continue
@@ -44,7 +46,5 @@ def set_brightness(deck, brightness: int):
 
 def __key_change_callback(deck, key, state):
     print("Deck {} Key {} = {}".format(deck.id(), key, state), flush=True)
-    init_backend = backends['init'].load()
-    init_backend()
     fire = backends['fire'].load()
     fire("SwitchScene", {"name": "S: Gaming"})
