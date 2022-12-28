@@ -1,12 +1,12 @@
 import threading
 
 from StreamDeck.DeviceManager import DeviceManager
+from StreamDeck.Devices.StreamDeck import StreamDeck
 
 from ed_core import streamdeck_config
 
 stream_decks = DeviceManager().enumerate()
 backends = None
-action_map = {}
 
 
 def initialize(edbs):
@@ -40,11 +40,24 @@ def get_stream_decks():
     return stream_decks
 
 
+def get_supported_image_formats(deck: StreamDeck):
+    deck.key_image_format()
+
+
+def get_key_layout(deck: StreamDeck):
+    deck.key_layout()
+
+
+def get_key_count(deck: StreamDeck):
+    deck.key_count()
+
+
 def set_brightness(deck, brightness: int):
     deck.set_brightness(brightness)
 
 
-def __key_change_callback(deck, key, state):
+def __key_change_callback(deck: StreamDeck, key, state):
     print("Deck {} Key {} = {}".format(deck.id(), key, state), flush=True)
-    fire = backends['fire'].load()
-    fire("SwitchScene", {"name": "S: Gaming"})
+    if state:
+        fire = backends['fire'].load()
+        fire("SwitchScene", {"name": "S: Desktop"})
