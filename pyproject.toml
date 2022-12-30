@@ -4,7 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "el_decko_core"
-dynamic = ["version", "readme"]
+dynamic = ["version"]
+readme = "README.md"
 description = "El Decko OBS Studio Websocket Backend"
 license = { text = "GPL-3"}
 dependencies = [
@@ -24,7 +25,6 @@ backends = "ed_core:backends"
 
 [tool.setuptools.dynamic]
 version = { attr = "ed_core.VERSION" }
-readme = { file = ["README.md"] }
 
 [tool.setuptools]
 include-package-data = true

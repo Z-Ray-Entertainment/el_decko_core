@@ -34,6 +34,6 @@ The default path is: `$HOME/.config/eldecko`
 
 ## Available backends
 - [OBS Studio Websocket](https://github.com/Z-Ray-Entertainment/el_decko_backend_obs_ws)
-* This backend function by using OBS Studios websocket server.
-* This way it is display server agnostic
-* You need to enable the websocket server inside OBS and supply the plugin with the generated password.
+  * This backend function by using OBS Studios websocket server.
+  * This way it is display server agnostic
+  * You need to enable the websocket server inside OBS and supply the plugin with the generated password.
