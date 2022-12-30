@@ -3,32 +3,18 @@ import os
 
 from StreamDeck.DeviceManager import DeviceManager
 from StreamDeck.Devices.StreamDeck import StreamDeck
-from xdg import (
-    xdg_cache_home,
-    xdg_config_dirs,
-    xdg_config_home,
-    xdg_data_dirs,
-    xdg_data_home,
-    xdg_runtime_dir,
-    xdg_state_home,
-)
 
-CONFIG_PATH: str = str(xdg_config_home()) + "/eldecko/"
-CONFIG_FILE: str = CONFIG_PATH + "streamdeck.json"
+from ed_core import dyn_data
+
+CONFIG_FILE: str = "streamdeck.json"
 DECK_CFG: dict = {}
 
 
 def load_config():
-    if not os.path.exists(CONFIG_PATH):
-        os.makedirs(CONFIG_PATH)
-    if not os.path.isfile(CONFIG_FILE):
+    if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, CONFIG_FILE):
         __create_default_config()
-    try:
-        with open(CONFIG_FILE) as input_file:
-            global DECK_CFG
-            DECK_CFG = json.load(input_file)
-    except json.decoder.JSONDecodeError as e:
-        print(e)
+    global DECK_CFG
+    DECK_CFG = dyn_data.load_config(dyn_data.CONFIG_ROOT, CONFIG_FILE)
 
 
 def get_config():
@@ -65,5 +51,4 @@ def __create_default_config():
 
         DECK_CFG[serial] = dict(brightness=30, key_config=key_config)
         deck.close()
-        with open(CONFIG_FILE, "w+", encoding="utf-8") as outfile:
-            json.dump(DECK_CFG, outfile, ensure_ascii=False, indent=2)
+        dyn_data.store_config(dyn_data.CONFIG_ROOT, CONFIG_FILE, DECK_CFG)
