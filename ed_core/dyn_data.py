@@ -17,8 +17,10 @@ CONFIG_ROOT: str = ""
 
 if os.name == "nt":
     CONFIG_ROOT = os.getenv('LOCALAPPDATA') + "/" + __app_name + "/"
-else:
+elif os.name == "linux":
     CONFIG_ROOT = str(xdg_config_home()) + "/" + __app_name + "/"
+else:
+    CONFIG_ROOT = ""
 
 CONFIG_ROOT_BACKEND = CONFIG_ROOT + "backends/"
 ASSETS_ROOT = CONFIG_ROOT + "assets/"
