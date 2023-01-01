@@ -14,10 +14,9 @@ from xdg import (
 
 __app_name = "eldecko"
 CONFIG_ROOT: str = ""
-
 if os.name == "nt":
     CONFIG_ROOT = os.getenv('LOCALAPPDATA') + "/" + __app_name + "/"
-elif os.name == "linux":
+elif os.name == "posix":
     CONFIG_ROOT = str(xdg_config_home()) + "/" + __app_name + "/"
 else:
     CONFIG_ROOT = ""
