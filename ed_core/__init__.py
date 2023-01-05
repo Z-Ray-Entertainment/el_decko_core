@@ -3,7 +3,7 @@ from importlib.metadata import entry_points
 from ed_core import streamdeck
 from ed_core.streamdeck_config import load_config, apply_config
 
-VERSION = "2023.1.5"
+VERSION = "2023.1.5.1"
 BACKENDS = {}
 
 
