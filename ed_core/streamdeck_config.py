@@ -4,7 +4,7 @@ import os
 from StreamDeck.DeviceManager import DeviceManager
 from StreamDeck.Devices.StreamDeck import StreamDeck
 from StreamDeck.ImageHelpers import PILHelper
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 from ed_core import dyn_data
 
@@ -28,9 +28,15 @@ def apply_config(deck: StreamDeck):
     deck.set_brightness(DECK_CFG[serial]["brightness"])
     for i in range(0, deck.key_count()):
         image_path: str = DECK_CFG[deck.get_serial_number()]["key_config"][str(i)]["image_idle"]
+        label: str = DECK_CFG[deck.get_serial_number()]["key_config"][str(i)]["label"]
         if image_path and image_path.startswith(dyn_data.ASSETS_ROOT) and os.path.isfile(image_path):
             icon = Image.open(image_path)
             image = PILHelper.create_scaled_image(deck, icon)
+            if label != "":
+                image = PILHelper.create_scaled_image(deck, icon, margins=[0, 0, 20, 0])
+                draw = ImageDraw.Draw(image)
+                font = ImageFont.truetype("Roboto-Regular.ttf", 14)
+                draw.text((image.width / 2, image.height - 5), text=label, font=font, anchor="ms", fill="white")
             native_image = PILHelper.to_native_format(deck, image)
             deck.set_key_image(i, native_image)
         else:
@@ -62,7 +68,8 @@ def __create_default_config():
 
                 },
                 "image_idle": None,
-                "image_pressed": None
+                "image_pressed": None,
+                "label": ""
             }
 
         DECK_CFG[serial] = dict(brightness=30, key_config=key_config)

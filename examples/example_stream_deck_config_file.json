@@ -10,7 +10,8 @@
           "param_2_name": "param_2_property"
         },
         "image_idle": "Path: idle.jpg",
-        "image_pressed": "Path: pressed.jpg"
+        "image_pressed": "Path: pressed.jpg",
+        "label": "Some text"
       },
       "0": {
         "backend": "edb_obs_ws",
@@ -19,7 +20,8 @@
           "name": "My awesome OBS Studio Scene"
         },
         "image_idle": null,
-        "image_pressed": null
+        "image_pressed": null,
+        "label": ""
       }
     }
   }
