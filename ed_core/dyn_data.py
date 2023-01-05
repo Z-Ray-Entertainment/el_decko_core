@@ -14,15 +14,24 @@ from xdg import (
 
 __app_name = "eldecko"
 CONFIG_ROOT: str = ""
+DATA_ROOT: str = ""
 if os.name == "nt":
     CONFIG_ROOT = os.getenv('LOCALAPPDATA') + "/" + __app_name + "/"
+    DATA_ROOT = os.getenv('LOCALAPPDATA') + "/" + __app_name + "/"
 elif os.name == "posix":
     CONFIG_ROOT = str(xdg_config_home()) + "/" + __app_name + "/"
+    DATA_ROOT = str(xdg_data_home()) + "/" + __app_name + "/"
 else:
     CONFIG_ROOT = ""
+    DATA_ROOT = ""
 
 CONFIG_ROOT_BACKEND = CONFIG_ROOT + "backends/"
-ASSETS_ROOT = CONFIG_ROOT + "assets/"
+ASSETS_ROOT = DATA_ROOT + "assets/"
+
+if not os.path.exists(ASSETS_ROOT):
+    os.makedirs(ASSETS_ROOT)
+if not os.path.exists(CONFIG_ROOT):
+    os.makedirs(CONFIG_ROOT)
 
 
 def load_config(root_path: str, file_name: str):

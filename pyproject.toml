@@ -10,6 +10,7 @@ description = "El Decko OBS Studio Websocket Backend"
 license = { text = "GPL-3"}
 dependencies = [
     "streamdeck",
+    "Pillow",
     "xdg; platform_system=='Linux'"
 ]
 

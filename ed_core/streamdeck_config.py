@@ -3,6 +3,8 @@ import os
 
 from StreamDeck.DeviceManager import DeviceManager
 from StreamDeck.Devices.StreamDeck import StreamDeck
+from StreamDeck.ImageHelpers import PILHelper
+from PIL import Image
 
 from ed_core import dyn_data
 
@@ -24,6 +26,20 @@ def get_config():
 def apply_config(deck: StreamDeck):
     serial = deck.get_serial_number()
     deck.set_brightness(DECK_CFG[serial]["brightness"])
+    for i in range(0, deck.key_count()):
+        image_path: str = DECK_CFG[deck.get_serial_number()]["key_config"][str(i)]["image_idle"]
+        if image_path and image_path.startswith(dyn_data.ASSETS_ROOT) and os.path.isfile(image_path):
+            icon = Image.open(image_path)
+            image = PILHelper.create_scaled_image(deck, icon)
+            native_image = PILHelper.to_native_format(deck, image)
+            deck.set_key_image(i, native_image)
+        else:
+            print("Invalid icon path: {} for Deck: {} and key: {}".format(image_path, deck.get_serial_number(), i))
+            print("Image must be located at: {}".format(dyn_data.ASSETS_ROOT))
+
+
+def __create_key_image(deck, image_file, font_style, label):
+    pass
 
 
 def __create_default_config():
