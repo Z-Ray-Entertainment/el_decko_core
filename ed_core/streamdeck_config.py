@@ -35,7 +35,7 @@ def apply_config(deck: StreamDeck):
             if label != "":
                 image = PILHelper.create_scaled_image(deck, icon, margins=[0, 0, 20, 0])
                 draw = ImageDraw.Draw(image)
-                font = ImageFont.truetype("Roboto-Regular.ttf", 14)
+                font = ImageFont.truetype("Roboto-Regular.ttf", 14)  # ToDo: Replace with actual ttf from assets
                 draw.text((image.width / 2, image.height - 5), text=label, font=font, anchor="ms", fill="white")
             native_image = PILHelper.to_native_format(deck, image)
             deck.set_key_image(i, native_image)
