@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "el_decko_core"
 dynamic = ["version"]
 readme = "README.md"
-description = "El Decko OBS Studio Websocket Backend"
+description = "El Decko Core"
 license = { text = "GPL-3"}
 dependencies = [
     "streamdeck",
