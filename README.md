@@ -37,3 +37,7 @@ The default path is: `$HOME/.config/eldecko`
   * This backend function by using OBS Studios websocket server.
   * This way it is display server agnostic
   * You need to enable the websocket server inside OBS and supply the plugin with the generated password.
+  
+## Write your own backends / plugins
+If you want to write your own backend / plugin for El Decko you do not need to release your code under the same license as the core.  
+As El Decko Core searches your python sitelibs for applciations exposing some pre-defined endpoints, but does not change its actual code, your plugin can be distributed under any license you want. This also includes keeping it all for yourself.
