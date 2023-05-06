@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-backends = ["el_decko_backend_obs_ws>=0.0.1"]
+backends = ["el_decko_backend_obs_ws", "el_decko_backend_mpris"]
 
 [project.scripts]
 ed-core = "ed_core:run"
