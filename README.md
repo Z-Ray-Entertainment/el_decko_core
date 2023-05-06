@@ -37,3 +37,29 @@ The default path is: `$HOME/.config/eldecko`
   * This backend function by using OBS Studios websocket server.
   * This way it is display server agnostic
   * You need to enable the websocket server inside OBS and supply the plugin with the generated password.
+  
+## Write your own backends / plugins
+If you want to write your own backend / plugin for El Decko you do not need to release your code under the same license as the core.  
+As El Decko Core searches your python sitelibs for applciations exposing some pre-defined endpoints, but does not change its actual code, your plugin can be distributed under any license you want. This also includes keeping it all for yourself.
+
+The following entry points are searched for: 
+- `init`
+  - This entry point is invoked for each backend/plugin once uppon booting up El Decko
+- `stop`
+  - This entry point is invoked once for each backend/plugin when El Decko is shutdown
+- `fire`
+  - This entry point is invoked for a dedicated backend/plugin once a button on the Stream Deck is pressed
+  - Which backend/plugin is to be invoked is defined by the `key_config` of a given key usinbg the `backend` proiperty.
+  - The configuration file holding this information is located at: `$XDG_CONFIG/eldecko/streamdeck.json`
+- `events`
+  - This entry point is not used by any component of El Deck but is intendet to be used in conjunction with user interfaces.
+  - The idea is to supply a unified way to query all available events of all available backend/plugins to be exposed inside a UI
+  - This could be a drop down allowing to select an backend/plugin plus another drop down to then select a available event supported by the previously selected backend
+ 
+ Addionally ed_core exposed some entry points for backend/plugins to hook into:
+ - `start`
+   - This entry point is the same entry point which is used to boot up ed_core from CLI
+   - It is intendet to be later on used to boot up ed_core from an UI rather than running ed_core manualylö from CLI and then launching any given UI
+ - `backends`
+   - Retruns a list of all available backends
+   - As backends are only loaded as soon as the core is launched this currently conflicts with the above entry point as a UI can not list all available backends if the core isn't already running
