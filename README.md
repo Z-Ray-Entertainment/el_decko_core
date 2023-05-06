@@ -34,9 +34,9 @@ The default path is: `$HOME/.config/eldecko`
 
 ## Available backends
 - [OBS Studio Websocket](https://github.com/Z-Ray-Entertainment/el_decko_backend_obs_ws)
-  * This backend function by using OBS Studios websocket server.
-  * This way it is display server agnostic
-  * You need to enable the websocket server inside OBS and supply the plugin with the generated password.
+  - Controls OBS Studio via it's build-in Websocket server
+- [MPRIS 2](https://github.com/Z-Ray-Entertainment/el_decko_backend_mpris)
+  - Controls MPRIS2 compatible media players
   
 ## Write your own backends / plugins
 If you want to write your own backend / plugin for El Decko you do not need to release your code under the same license as the core.  
