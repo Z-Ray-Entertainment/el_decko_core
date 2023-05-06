@@ -14,6 +14,10 @@ dependencies = [
     "xdg; platform_system=='Linux'"
 ]
 
+[project.urls]
+"Homepage" = "https://github.com/Z-Ray-Entertainment/el_decko_core"
+"Bug Tracker" = "https://github.com/Z-Ray-Entertainment/el_decko_core/issues"
+
 [project.optional-dependencies]
 backends = ["el_decko_backend_obs_ws", "el_decko_backend_mpris"]
 
