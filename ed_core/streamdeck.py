@@ -33,6 +33,14 @@ def initialize(edbs):
                 pass
 
 
+def shutdown():
+    for index, deck in enumerate(stream_decks):
+        if not deck.is_visual():
+            continue
+        deck.reset()
+        deck.close()
+
+
 # Returns a list of all available Stream Decks
 def get_stream_decks():
     return stream_decks
