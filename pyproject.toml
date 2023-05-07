@@ -24,10 +24,6 @@ backends = ["el_decko_backend_obs_ws", "el_decko_backend_mpris"]
 [project.scripts]
 ed-core = "ed_core:run"
 
-[project.entry-points."eldecko.core"]
-start = "ed_core:run"
-backends = "ed_core:backends"
-
 [tool.setuptools.dynamic]
 version = { attr = "ed_core.VERSION" }
 
