@@ -1,5 +1,3 @@
-import threading
-
 from StreamDeck.DeviceManager import DeviceManager
 from StreamDeck.Devices.StreamDeck import StreamDeck
 
@@ -25,12 +23,6 @@ def initialize(edbs):
 
         streamdeck_config.apply_config(deck)
         deck.set_key_callback(__key_change_callback)
-
-        for t in threading.enumerate():
-            try:
-                t.join()
-            except RuntimeError:
-                pass
 
 
 def shutdown():

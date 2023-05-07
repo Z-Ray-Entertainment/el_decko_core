@@ -1,13 +1,14 @@
+import threading
 from importlib.metadata import entry_points
 
 from ed_core import streamdeck
 from ed_core.streamdeck_config import load_config, apply_config
 
-VERSION = "2023.5.6.1"
+VERSION = "2023.5.7"
 BACKENDS = {}
 
 
-def run():
+def run(standalone: bool = True):
     try:
         print("El Decko Core running.")
         load_config()
@@ -24,6 +25,12 @@ def run():
                 BACKENDS[edb_id][edb_name] = edb_function
 
         streamdeck.initialize(BACKENDS)
+        if standalone:
+            for t in threading.enumerate():
+                try:
+                    t.join()
+                except RuntimeError:
+                    pass
     except KeyboardInterrupt:
         streamdeck.shutdown()
         for backend in BACKENDS:
