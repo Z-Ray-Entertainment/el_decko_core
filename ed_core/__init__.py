@@ -32,11 +32,20 @@ def run(standalone: bool = True):
                 except RuntimeError:
                     pass
     except KeyboardInterrupt:
-        streamdeck.shutdown()
-        for backend in BACKENDS:
-            print(backend)
-            shutdown = BACKENDS[backend]["stop"]
-            shutdown()
+        stop_core()
+
+
+def stop_core():
+    print("Stopping El Decko Core")
+    streamdeck.shutdown()
+    __stop_backends()
+
+
+def __stop_backends():
+    for backend in BACKENDS:
+        print(backend)
+        shutdown = BACKENDS[backend]["stop"]
+        shutdown()
 
 
 def backends():
