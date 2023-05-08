@@ -54,6 +54,16 @@ def set_brightness(deck, brightness: int):
     deck.set_brightness(brightness)
 
 
+def get_key_config(deck_serial: str, key_num: int):
+    for index, deck in enumerate(stream_decks):
+        deck.open()
+        if deck.get_serial_number() == deck_serial:
+            streamdeck_config.load_config()
+            cfg = streamdeck_config.DECK_CFG[deck_serial]["key_config"][str(key_num)]
+            deck.close()
+            return cfg
+
+
 def __key_change_callback(deck: StreamDeck, key, state):
     if state:
         cfg = streamdeck_config.DECK_CFG[deck.get_serial_number()]
