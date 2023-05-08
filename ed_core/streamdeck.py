@@ -1,7 +1,7 @@
 from StreamDeck.DeviceManager import DeviceManager
 from StreamDeck.Devices.StreamDeck import StreamDeck
 
-from ed_core import streamdeck_config
+from ed_core import streamdeck_config, query_deck
 
 stream_decks = DeviceManager().enumerate()
 backends = []
@@ -38,30 +38,16 @@ def get_stream_decks():
     return stream_decks
 
 
-def get_supported_image_formats(deck: StreamDeck):
-    deck.key_image_format()
-
-
-def get_key_layout(deck: StreamDeck):
-    deck.key_layout()
-
-
-def get_key_count(deck: StreamDeck):
-    deck.key_count()
-
-
 def set_brightness(deck, brightness: int):
     deck.set_brightness(brightness)
 
 
 def get_key_config(deck_serial: str, key_num: int):
     for index, deck in enumerate(stream_decks):
-        deck.open()
-        if deck.get_serial_number() == deck_serial:
+        serial = query_deck.query_deck(deck, query_deck.QueryType.SERIAL)
+        if serial == deck_serial:
             streamdeck_config.load_config()
-            cfg = streamdeck_config.DECK_CFG[deck_serial]["key_config"][str(key_num)]
-            deck.close()
-            return cfg
+            return streamdeck_config.DECK_CFG[deck_serial]["key_config"][str(key_num)]
 
 
 def __key_change_callback(deck: StreamDeck, key, state):
