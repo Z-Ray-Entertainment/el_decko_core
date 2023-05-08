@@ -1,3 +1,5 @@
+# Utility for GUIs to query deck properties.
+# Please use this module instead of querying Stream Decks directly
 from enum import Enum
 
 
