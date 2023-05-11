@@ -16,7 +16,8 @@ def load_config():
     if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, CONFIG_FILE):
         __create_default_config()
     global DECK_CFG
-    DECK_CFG = dyn_data.load_config(dyn_data.CONFIG_ROOT, CONFIG_FILE)
+    if not DECK_CFG:
+        DECK_CFG = dyn_data.load_config(dyn_data.CONFIG_ROOT, CONFIG_FILE)
 
 
 def get_config():

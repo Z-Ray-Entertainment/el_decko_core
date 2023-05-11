@@ -1,11 +1,12 @@
 import threading
 from importlib.metadata import entry_points
 
-from ed_core import streamdeck
-from ed_core.streamdeck_config import load_config, apply_config
+from ed_core import core, cache
+from ed_core.config import load_config, apply_config
 
-VERSION = "2023.5.8.1"
+VERSION = "2023.5.11"
 BACKENDS = {}
+print(cache.CACHE)
 
 
 def run(standalone: bool = True):
@@ -24,7 +25,7 @@ def run(standalone: bool = True):
                     BACKENDS[edb_id] = {}
                 BACKENDS[edb_id][edb_name] = edb_function
 
-        streamdeck.initialize(BACKENDS)
+        core.initialize(BACKENDS)
         if standalone:
             for t in threading.enumerate():
                 try:
@@ -37,7 +38,7 @@ def run(standalone: bool = True):
 
 def stop_core():
     print("Stopping El Decko Core")
-    streamdeck.shutdown()
+    core.shutdown()
     __stop_backends()
 
 
