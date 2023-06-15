@@ -5,6 +5,7 @@ It serves as the glue between any backend, the Stream Deck  and any given user i
 If writing news user interfaces please target the core instead of using any or multiple backends directly.  
 Also don't provide Stream Deck related functionality directly in the UI but seek to add missing stuff here.
 
+[![build result](https://build.opensuse.org/projects/home:VortexAcherontic:ElDecko/packages/el_decko_core/badge.svg?type=default)](https://build.opensuse.org/package/show/home:VortexAcherontic:ElDecko/el_decko_core)
 ![El Decko concept](examples/el_decko_concept.svg "El Decko concept")
 
 ## Develop El Decko
