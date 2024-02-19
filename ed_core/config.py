@@ -12,18 +12,12 @@ DECK_CFG: dict = {}
 KEY_CONFIG_INDEX: dict = {}
 
 
-def load_config(config_file_overwrite=""):
+def load_config():
+    if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, CONFIG_FILE):
+        __create_default_config()
     global DECK_CFG
-    if not config_file_overwrite:
-        if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, CONFIG_FILE):
-            __create_default_config()
+    if not DECK_CFG:
         DECK_CFG = dyn_data.load_config(dyn_data.CONFIG_ROOT, CONFIG_FILE)
-    else:
-        if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, config_file_overwrite):
-            print("Config file override " + config_file_overwrite + " not found, loading default")
-            load_config()
-        else:
-            DECK_CFG = dyn_data.load_config(dyn_data.CONFIG_ROOT, config_file_overwrite)
 
 
 def get_config():
