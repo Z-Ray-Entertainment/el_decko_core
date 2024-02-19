@@ -1,23 +1,29 @@
-import json
 import os
 
+from PIL import Image, ImageDraw, ImageFont
 from StreamDeck.DeviceManager import DeviceManager
 from StreamDeck.Devices.StreamDeck import StreamDeck
 from StreamDeck.ImageHelpers import PILHelper
-from PIL import Image, ImageDraw, ImageFont
 
 from ed_core import dyn_data
 
 CONFIG_FILE: str = "streamdeck.json"
 DECK_CFG: dict = {}
+KEY_CONFIG_INDEX: dict = {}
 
 
-def load_config():
-    if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, CONFIG_FILE):
-        __create_default_config()
+def load_config(config_file_overwrite=""):
     global DECK_CFG
-    if not DECK_CFG:
+    if not config_file_overwrite:
+        if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, CONFIG_FILE):
+            __create_default_config()
         DECK_CFG = dyn_data.load_config(dyn_data.CONFIG_ROOT, CONFIG_FILE)
+    else:
+        if not dyn_data.config_exists(dyn_data.CONFIG_ROOT, config_file_overwrite):
+            print("Config file override " + config_file_overwrite + " not found, loading default")
+            load_config()
+        else:
+            DECK_CFG = dyn_data.load_config(dyn_data.CONFIG_ROOT, config_file_overwrite)
 
 
 def get_config():
@@ -28,8 +34,8 @@ def apply_config(deck: StreamDeck):
     serial = deck.get_serial_number()
     deck.set_brightness(DECK_CFG[serial]["brightness"])
     for i in range(0, deck.key_count()):
-        image_path: str = DECK_CFG[deck.get_serial_number()]["key_config"][str(i)]["image_idle"]
-        label: str = DECK_CFG[deck.get_serial_number()]["key_config"][str(i)]["label"]
+        image_path: str = DECK_CFG[deck.get_serial_number()]["key_configs"][KEY_CONFIG_INDEX[deck.get_serial_number()]][str(i)]["image_idle"]
+        label: str = DECK_CFG[deck.get_serial_number()]["key_configs"][KEY_CONFIG_INDEX[deck.get_serial_number()]][str(i)]["label"]
         if image_path and image_path.startswith(dyn_data.ASSETS_ROOT) and os.path.isfile(image_path):
             icon = Image.open(image_path)
             image = PILHelper.create_scaled_image(deck, icon)
@@ -60,19 +66,14 @@ def __create_default_config():
 
         serial = deck.get_serial_number()
 
+        key_config_array = []
         key_config: dict = {}
         for i in range(0, deck.key_count()):
-            key_config[str(i)] = {
-                "backend": None,
-                "event": None,
-                "event_parameters": {
+            key_config[str(i)] = {"backend": None, "event": None, "event_parameters": {
 
-                },
-                "image_idle": None,
-                "image_pressed": None,
-                "label": ""
-            }
+            }, "image_idle": None, "image_pressed": None, "label": ""}
+        key_config_array.append(key_config)
 
-        DECK_CFG[serial] = dict(brightness=30, key_config=key_config)
+        DECK_CFG[serial] = dict(brightness=30, key_configs=key_config_array)
         deck.close()
         dyn_data.store_config(dyn_data.CONFIG_ROOT, CONFIG_FILE, DECK_CFG)

@@ -4,7 +4,7 @@ from importlib.metadata import entry_points
 from ed_core import core, cache
 from ed_core.config import load_config, apply_config
 
-VERSION = "2023.5.11"
+VERSION = "2024.2"
 BACKENDS = {}
 print(cache.CACHE)
 
@@ -19,6 +19,7 @@ def run(standalone: bool = True):
             edb_function = edb.load()
             edb_name: str = edb.name
             if edb_name.lower() == "init":
+                print("Initializing backend " + edb_id)
                 edb_function()
             else:
                 if edb_id not in BACKENDS:
