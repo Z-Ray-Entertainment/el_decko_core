@@ -1,3 +1,8 @@
+
+| :exclamation:  Discontinued there is now: [StreamController](https://flathub.org/de/apps/com.core447.StreamController)   |
+|-----------------------------------------|
+
+
 # El Decko Core
 This is the core of El Decko.  
 It serves as the glue between any backend, the Stream Deck  and any given user interface.
